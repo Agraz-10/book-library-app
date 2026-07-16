@@ -1,11 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "./components/Header";
 import BookCard from "./components/BookCard";
 import BookForm from "./components/BookForm";
 import books from "./data/books";
 
 function App() {
-  const [bookList, setBookList] = useState(books);
+  const [bookList, setBookList] = useState(() => {
+    const savedBooks = localStorage.getItem("books");
+
+    return savedBooks ? JSON.parse(savedBooks) : books;
+  });
+
+  useEffect(() => {
+    localStorage.setItem("books", JSON.stringigy(bookList));
+  }, [bookList]);
 
   function addBook(newBook) {
     setBookList([...bookList, newBook]);
