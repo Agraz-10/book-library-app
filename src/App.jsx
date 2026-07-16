@@ -3,6 +3,7 @@ import Header from "./components/Header";
 import BookForm from "./components/BookForm";
 import BookCard from "./components/BookCard";
 import books from "./data/books";
+import CategoryFilter from "./components/CategoryFilter";
 
 function App() {
   const [bookList, setBookList] = useState(() => {
