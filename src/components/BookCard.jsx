@@ -28,6 +28,10 @@ function BookCard(props) {
                 <p>
                     <strong>Rating:</strong> ⭐ {props.rating}
                 </p>
+
+                <button className="delete-btn" onClick={props.onDelete}>
+                    Delete Button
+                </button>
             </div>
         </div>
     );

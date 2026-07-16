@@ -18,6 +18,11 @@ function App() {
     setBookList([...bookList, newBook]);
   }
 
+  function deleteBook(id) {
+    const updateBooks = bookList.filter((book) => book.id !== id);
+    setBookList(updateBooks);
+  }
+
   return (
     <>
       <Header />
@@ -42,6 +47,7 @@ function App() {
                 category={book.category}
                 price={book.price}
                 rating={book.rating}
+                onDelete={() => deleteBook(book.id)}
               />
             ))}
           </div>
