@@ -1,18 +1,23 @@
+import { useState } from "react";
 import Header from "./components/Header";
 import BookCard from "./components/BookCard";
-import books from "./data/books";
 import BookForm from "./components/BookForm";
+import books from "./data/books";
 
 function App() {
+  const [bookList, setBookList] = useState(books);
+
+  function addBook(newBook) {
+    setBookList([...bookList, newBook]);
+  }
+
   return (
     <>
       <Header />
 
-      <BookForm />
+      <BookForm addBook={addBook} />
 
-      {/* Book list */}
-
-      {books.map((book) => (
+      {bookList.map((book) => (
         <BookCard
           key={book.id}
           cover={book.cover}
