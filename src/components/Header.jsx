@@ -1,6 +1,6 @@
 function Header() {
   return (
-    <header>
+    <header className="header">
       <h1>📚 Book Library App</h1>
     </header>
   );

@@ -7,23 +7,25 @@ function BookCard(props) {
         className="book-cover"
       />
 
-      <h2>{props.title}</h2>
+      <div className="book-info">
+        <h3>{props.title}</h3>
 
-      <p>
-        <strong>Author:</strong> {props.author}
-      </p>
+        <p>
+          <strong>Author:</strong> {props.author}
+        </p>
 
-      <p>
-        <strong>Category:</strong> {props.category}
-      </p>
+        <p>
+          <strong>Category:</strong> {props.category}
+        </p>
 
-      <p>
-        <strong>Price:</strong> ${props.price}
-      </p>
+        <p>
+          <strong>Price:</strong> ${props.price}
+        </p>
 
-      <p>
-        <strong>Rating:</strong> ⭐ {props.rating}
-      </p>
+        <p>
+          <strong>Rating:</strong> ⭐ {props.rating}
+        </p>
+      </div>
     </div>
   );
 }
