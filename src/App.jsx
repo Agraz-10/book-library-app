@@ -12,7 +12,7 @@ function App() {
   });
 
   useEffect(() => {
-    localStorage.setItem("books", JSON.stringigy(bookList));
+    localStorage.setItem("books", JSON.stringify(bookList));
   }, [bookList]);
 
   function addBook(newBook) {
@@ -25,17 +25,21 @@ function App() {
 
       <BookForm addBook={addBook} />
 
-      {bookList.map((book) => (
-        <BookCard
-          key={book.id}
-          cover={book.cover}
-          title={book.title}
-          author={book.author}
-          category={book.category}
-          price={book.price}
-          rating={book.rating}
-        />
-      ))}
+      {bookList.length === 0 ? (
+        <p>No books found. Add your first book!</p>
+      ) : (
+        bookList.map((book) => (
+          <BookCard
+            key={book.id}
+            cover={book.cover}
+            title={book.title}
+            author={book.author}
+            category={book.category}
+            price={book.price}
+            rating={book.rating}
+          />
+        ))
+      )}
     </>
   );
 }
