@@ -1,11 +1,16 @@
 import Header from "./components/Header";
 import BookCard from "./components/BookCard";
 import books from "./data/books";
+import BookForm from "./components/BookForm";
 
 function App() {
   return (
     <>
       <Header />
+
+      <BookForm />
+
+      {/* Book list */}
 
       {books.map((book) => (
         <BookCard
