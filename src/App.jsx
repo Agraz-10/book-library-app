@@ -10,6 +10,8 @@ function App() {
     return savedBooks ? JSON.parse(savedBooks) : books;
   });
 
+  const [searchTerm, setSearchTerm] = useState("");
+
   useEffect(() => {
     localStorage.setItem("books", JSON.stringify(bookList));
   }, [bookList]);
@@ -19,9 +21,15 @@ function App() {
   }
 
   function deleteBook(id) {
-    const updateBooks = bookList.filter((book) => book.id !== id);
-    setBookList(updateBooks);
+    const updatedBooks = bookList.filter((book) => book.id !== id);
+    setBookList(updatedBooks);
   }
+
+  const filteredBooks = bookList.filter(
+    (book) =>
+      book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      book.author.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <>
@@ -30,15 +38,23 @@ function App() {
       <main className="container">
         <BookForm addBook={addBook} />
 
+        <input
+          type="text"
+          className="search-input"
+          placeholder="🔍 Search by title or author..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+
         <h2 className="section-title">My Library</h2>
 
-        {bookList.length === 0 ? (
+        {filteredBooks.length === 0 ? (
           <p className="empty-message">
-            📚 No books found. Add your first book!
+            📚 No books found. Try another search or add a new book.
           </p>
         ) : (
           <div className="book-grid">
-            {bookList.map((book) => (
+            {filteredBooks.map((book) => (
               <BookCard
                 key={book.id}
                 cover={book.cover}
