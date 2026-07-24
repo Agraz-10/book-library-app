@@ -5,6 +5,7 @@ import BookCard from "./components/BookCard";
 import CategoryFilter from "./components/CategoryFilter";
 import books from "./data/books";
 import StatsCards from "./components/StatsCards";
+import { toast } from "react-toastify";
 
 function App() {
   const [bookList, setBookList] = useState(() => {
@@ -30,6 +31,12 @@ function App() {
       );
 
       setBookList(updatedBooks);
+      
+      if (editingBook) {
+        toast.success("Book updated successfully!");
+      } else {
+        toast.success("Book added successfully!");
+      }
       setEditingBook(null);
     } else {
       setBookList([...bookList, book]);
@@ -39,6 +46,7 @@ function App() {
   function deleteBook(id) {
     const updatedBooks = bookList.filter((book) => book.id !== id);
     setBookList(updatedBooks);
+    toast.error("Book deleted.");
 
     if (editingBook && editingBook.id === id) {
       setEditingBook(null);
