@@ -200,3 +200,24 @@ select {
 .dark .cancel-btn:hover {
   background: #64748b;
 }
+
+.top-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.export-btn {
+  background: #16a34a;
+  color: white;
+  border: none;
+  padding: 12px 22px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.export-btn:hover {
+  background: #15803d;
+}

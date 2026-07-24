@@ -8,6 +8,7 @@ import CategoryFilter from "./components/CategoryFilter";
 import StatsCards from "./components/StatsCards";
 import DeleteModal from "./components/DeleteModal";
 import BookDetailsModal from "./components/BookDetailsModal";
+import ExportButton from "./components/ExportButton";
 
 import books from "./data/books";
 
@@ -130,15 +131,15 @@ function App() {
     totalBooks === 0
       ? "0.0"
       : (
-          bookList.reduce((sum, book) => sum + book.rating, 0) / totalBooks
-        ).toFixed(1);
+        bookList.reduce((sum, book) => sum + book.rating, 0) / totalBooks
+      ).toFixed(1);
 
   const averagePrice =
     totalBooks === 0
       ? "0.00"
       : (
-          bookList.reduce((sum, book) => sum + book.price, 0) / totalBooks
-        ).toFixed(2);
+        bookList.reduce((sum, book) => sum + book.price, 0) / totalBooks
+      ).toFixed(2);
 
   return (
     <div className={darkMode ? "app dark" : "app"}>
@@ -184,6 +185,10 @@ function App() {
                 <option value="price">Sort by Price</option>
                 <option value="rating">Sort by Rating</option>
               </select>
+            </div>
+
+            <div className="top-actions">
+              <ExportButton books={bookList} />
             </div>
 
             <StatsCards
