@@ -44,7 +44,7 @@ function App() {
 
   return (
     <>
-      <Header />
+      <Header totalBooks={bookList.length} />
 
       <main className="container">
         <div className="dashboard">
