@@ -118,6 +118,13 @@ function App() {
               </select>
             </div>
 
+            <StatsCards
+              totalBooks={totalBooks}
+              totalCategories={totalCategories}
+              averageRating={averageRating}
+              averagePrice={averagePrice}
+            />
+
             <h2 className="section-title">
               My Library ({filteredBooks.length})
             </h2>

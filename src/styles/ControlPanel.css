@@ -1,0 +1,25 @@
+.control-panel {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 18px;
+}
+
+.search-input,
+.category-filter,
+.sort-select {
+  height: 55px;
+  border: 1px solid #cbd5e1;
+  border-radius: 14px;
+  padding: 0 18px;
+  background: white;
+  font-size: 15px;
+  transition: 0.3s;
+}
+
+.search-input:focus,
+.category-filter:focus,
+.sort-select:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+}
