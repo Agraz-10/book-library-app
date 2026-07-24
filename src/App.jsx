@@ -204,18 +204,23 @@ function App() {
                 ))}
               </div>
             )}
-
-            <DeleteModal
-              isOpen={showDeleteModal}
-              onClose={() => {
-                setShowDeleteModal(false);
-                setSelectedBookId(null);
-              }}
-              onConfirm={deleteBook}
-            />
           </section>
         </div>
       </main>
+
+      <DeleteModal
+        isOpen={showDeleteModal}
+        onClose={() => {
+          setShowDeleteModal(false);
+          setSelectedBookId(null);
+        }}
+        onConfirm={deleteBook}
+      />
+
+      <BookDetailsModal
+        book={selectedBook}
+        onClose={() => setSelectedBook(null)}
+      />
     </>
   );
 }
