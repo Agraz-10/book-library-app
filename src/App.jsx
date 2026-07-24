@@ -7,6 +7,7 @@ import BookCard from "./components/BookCard";
 import CategoryFilter from "./components/CategoryFilter";
 import StatsCards from "./components/StatsCards";
 import books from "./data/books";
+import DeleteModal from "./components/DeleteModal";
 
 function App() {
   const [bookList, setBookList] = useState(() => {
@@ -38,19 +39,36 @@ function App() {
     }
   }
 
-  function deleteBook(id) {
-    const updatedBooks = bookList.filter((book) => book.id !== id);
+  function deleteBook() {
+    const updatedBooks = bookList.filter(
+      (book) => book.id !== selectedBookId
+    );
+
     setBookList(updatedBooks);
     toast.error("Book deleted.");
 
-    if (editingBook && editingBook.id === id) {
+    if (
+      editingBook &&
+      editingBook.id === selectedBookId
+    ) {
       setEditingBook(null);
     }
+
+    setShowDeleteModal(false);
+    setSelectedBookId(null);
+  }
+
+  function openDeleteModal(id) {
+    setSelectedBookId(id);
+    setShowDeleteModal(true);
   }
 
   function editBook(book) {
     setEditingBook(book);
   }
+
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [selectedBookId, setSelectedBookId] = useState(null);
 
   const categories = [...new Set(bookList.map((book) => book.category))];
 
@@ -91,15 +109,15 @@ function App() {
     totalBooks === 0
       ? "0.0"
       : (
-          bookList.reduce((sum, book) => sum + book.rating, 0) / totalBooks
-        ).toFixed(1);
+        bookList.reduce((sum, book) => sum + book.rating, 0) / totalBooks
+      ).toFixed(1);
 
   const averagePrice =
     totalBooks === 0
       ? "0.00"
       : (
-          bookList.reduce((sum, book) => sum + book.price, 0) / totalBooks
-        ).toFixed(2);
+        bookList.reduce((sum, book) => sum + book.price, 0) / totalBooks
+      ).toFixed(2);
 
   return (
     <>
@@ -166,11 +184,20 @@ function App() {
                     price={book.price}
                     rating={book.rating}
                     onEdit={() => editBook(book)}
-                    onDelete={() => deleteBook(book.id)}
+                    onDelete={() => openDeleteModal(book.id)}
                   />
                 ))}
               </div>
             )}
+
+            <DeleteModal
+              isOpen={showDeleteModal}
+              onClose={() => {
+                setShowDeleteModal(false);
+                setSelectedBookId(null);
+              }}
+              onConfirm={deleteBook}
+            />
           </section>
         </div>
       </main>

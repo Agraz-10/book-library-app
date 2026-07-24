@@ -11,6 +11,7 @@ import "./styles/BookCard.css";
 import "./styles/Dashboard.css";
 import "./styles/ControlPanel.css";
 import "./styles/Responsive.css";
+import "./styles/DeleteModal.css";
 
 import App from "./App.jsx";
 
