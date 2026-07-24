@@ -13,6 +13,7 @@ function App() {
 
   const [searchTerm, setSearchTerm] = useState("");
   const [category, setCategory] = useState("All");
+  const [sortBy, setSortBy] = useState("title");
 
   useEffect(() => {
     localStorage.setItem("books", JSON.stringify(bookList));
@@ -27,20 +28,34 @@ function App() {
     setBookList(updatedBooks);
   }
 
-  // Create a unique list of categories
   const categories = [...new Set(bookList.map((book) => book.category))];
 
-  // Filter books
-  const filteredBooks = bookList.filter((book) => {
-    const matchesSearch =
-      book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      book.author.toLowerCase().includes(searchTerm.toLowerCase());
+  const filteredBooks = bookList
+    .filter((book) => {
+      const matchesSearch =
+        book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        book.author.toLowerCase().includes(searchTerm.toLowerCase());
 
-    const matchesCategory =
-      category === "All" || book.category === category;
+      const matchesCategory =
+        category === "All" || book.category === category;
 
-    return matchesSearch && matchesCategory;
-  });
+      return matchesSearch && matchesCategory;
+    })
+    .sort((a, b) => {
+      switch (sortBy) {
+        case "title":
+          return a.title.localeCompare(b.title);
+
+        case "price":
+          return a.price - b.price;
+
+        case "rating":
+          return b.rating - a.rating;
+
+        default:
+          return 0;
+      }
+    });
 
   return (
     <>
@@ -53,28 +68,38 @@ function App() {
           </aside>
 
           <section className="content">
-            <input
-              type="text"
-              className="search-input"
-              placeholder="🔍 Search by title or author..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
+            <div className="control-panel">
+              <input
+                type="text"
+                className="search-input"
+                placeholder="🔍 Search by title or author..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
 
-            <CategoryFilter
-              category={category}
-              setCategory={setCategory}
-              categories={categories}
-            />
+              <CategoryFilter
+                category={category}
+                setCategory={setCategory}
+                categories={categories}
+              />
+
+              <select
+                className="sort-select"
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+              >
+                <option value="title">Sort by Title</option>
+                <option value="price">Sort by Price</option>
+                <option value="rating">Sort by Rating</option>
+              </select>
+            </div>
 
             <h2 className="section-title">
               My Library ({filteredBooks.length})
             </h2>
 
             {filteredBooks.length === 0 ? (
-              <p className="empty-message">
-                📚 No books found.
-              </p>
+              <p className="empty-message">📚 No books found.</p>
             ) : (
               <div className="book-grid">
                 {filteredBooks.map((book) => (
