@@ -8,6 +8,7 @@ import CategoryFilter from "./components/CategoryFilter";
 import StatsCards from "./components/StatsCards";
 import books from "./data/books";
 import DeleteModal from "./components/DeleteModal";
+import BookDetailsModal from "./components/BookDetailsModal";
 
 function App() {
   const [bookList, setBookList] = useState(() => {
@@ -19,6 +20,7 @@ function App() {
   const [category, setCategory] = useState("All");
   const [sortBy, setSortBy] = useState("title");
   const [editingBook, setEditingBook] = useState(null);
+  const [selectedBook, setSelectedBook] = useState(null);
 
   useEffect(() => {
     localStorage.setItem("books", JSON.stringify(bookList));
@@ -197,6 +199,7 @@ function App() {
                     onToggleFavorite={() => toggleFavorite(book.id)}
                     onEdit={() => editBook(book)}
                     onDelete={() => openDeleteModal(book.id)}
+                    onView={() => setSelectedBook(book)}
                   />
                 ))}
               </div>

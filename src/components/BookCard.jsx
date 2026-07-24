@@ -9,9 +9,10 @@ function BookCard({
   onToggleFavorite,
   onEdit,
   onDelete,
+  onView,
 }) {
   return (
-    <article className="book-card">
+    <article className="book-card" onClick={onView}>
       <div className="book-image">
         <img
           src={
@@ -25,7 +26,10 @@ function BookCard({
 
         <button
           className="favorite-btn"
-          onClick={onToggleFavorite}
+          onClick={(event) => {
+            event.stopPropagation();
+            onToggleFavorite();
+          }}
         >
           {favorite ? "❤️" : "🤍"}
         </button>
@@ -47,11 +51,23 @@ function BookCard({
         </div>
 
         <div className="card-buttons">
-          <button className="edit-btn" onClick={onEdit}>
+          <button
+            className="edit-btn"
+            onClick={(event) => {
+              event.stopPropagation();
+              onEdit();
+            }}
+          >
             ✏️ Edit
           </button>
 
-          <button className="delete-btn" onClick={onDelete}>
+          <button
+            className="delete-btn"
+            onClick={(event) => {
+              event.stopPropagation();
+              onDelete();
+            }}
+          >
             🗑 Delete
           </button>
         </div>
