@@ -3,6 +3,9 @@ function StatsCards({
   totalCategories,
   averageRating,
   averagePrice,
+  toReadCount,
+  readingCount,
+  completedCount,
 }) {
   const stats = [
     {
@@ -28,6 +31,24 @@ function StatsCards({
       title: "Average Price",
       value: `$${averagePrice}`,
       color: "purple",
+    },
+    {
+      icon: "📖",
+      title: "To Read",
+      value: toReadCount,
+      color: "cyan",
+    },
+    {
+      icon: "📚",
+      title: "Reading",
+      value: readingCount,
+      color: "orange",
+    },
+    {
+      icon: "✅",
+      title: "Completed",
+      value: completedCount,
+      color: "emerald",
     },
   ];
 

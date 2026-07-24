@@ -6,6 +6,7 @@ function BookCard({
   price,
   rating,
   favorite,
+  status,
   onToggleFavorite,
   onEdit,
   onDelete,
@@ -39,6 +40,10 @@ function BookCard({
         <h3>{title}</h3>
 
         <p className="book-author">{author}</p>
+
+        <div className="status-badge">
+          {status}
+        </div>
 
         <div className="book-details">
           <div className="detail-item">

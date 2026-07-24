@@ -8,6 +8,7 @@ const books = [
     price: 15.99,
     rating: 4.8,
     favorite: false,
+    status: "To Read",
   },
   {
     id: 2,
@@ -18,6 +19,7 @@ const books = [
     price: 12.5,
     rating: 4.7,
     favorite: false,
+    status: "To Read",
   },
   {
     id: 3,
@@ -28,6 +30,7 @@ const books = [
     price: 28.99,
     rating: 4.9,
     favorite: false,
+    status: "To Read",
   },
 ];
 

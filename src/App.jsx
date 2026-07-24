@@ -141,6 +141,18 @@ function App() {
         bookList.reduce((sum, book) => sum + book.price, 0) / totalBooks
       ).toFixed(2);
 
+  const toReadCount = bookList.filter(
+    (book) => book.status === "To Read"
+  ).length;
+
+  const readingCount = bookList.filter(
+    (book) => book.status === "Reading"
+  ).length;
+
+  const completedCount = bookList.filter(
+    (book) => book.status === "Completed"
+  ).length;
+
   return (
     <div className={darkMode ? "app dark" : "app"}>
       <Header totalBooks={totalBooks} />
@@ -196,6 +208,9 @@ function App() {
               totalCategories={totalCategories}
               averageRating={averageRating}
               averagePrice={averagePrice}
+              toReadCount={toReadCount}
+              readingCount={readingCount}
+              completedCount={completedCount}
             />
 
             <h2 className="section-title">
@@ -216,6 +231,7 @@ function App() {
                     price={book.price}
                     rating={book.rating}
                     favorite={book.favorite}
+                    status={book.status}
                     onToggleFavorite={() => toggleFavorite(book.id)}
                     onEdit={() => editBook(book)}
                     onDelete={() => openDeleteModal(book.id)}

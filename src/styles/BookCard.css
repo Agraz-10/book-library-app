@@ -132,3 +132,14 @@
 .favorite-btn:hover {
   transform: scale(1.1);
 }
+
+.status-badge {
+  display: inline-block;
+  margin: 14px 0;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: #e0f2fe;
+  color: #0369a1;
+  font-size: 13px;
+  font-weight: 600;
+}

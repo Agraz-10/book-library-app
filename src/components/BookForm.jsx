@@ -8,6 +8,8 @@ function BookForm({ saveBook, editingBook }) {
     price: "",
     rating: "",
     cover: "",
+    favorite: false,
+    status: "To Read",
   });
 
   useEffect(() => {
@@ -19,6 +21,8 @@ function BookForm({ saveBook, editingBook }) {
         price: editingBook.price,
         rating: editingBook.rating,
         cover: editingBook.cover,
+        favorite: editingBook.favorite,
+        status: editingBook.status,
       });
     } else {
       setFormData({
@@ -28,6 +32,8 @@ function BookForm({ saveBook, editingBook }) {
         price: "",
         rating: "",
         cover: "",
+        favorite: false,
+        status: "To Read",
       });
     }
   }, [editingBook]);
@@ -51,6 +57,7 @@ function BookForm({ saveBook, editingBook }) {
       rating: Number(formData.rating),
       cover: formData.cover,
       favorite: editingBook ? editingBook.favorite : false,
+      status: formData.status,
     });
 
     setFormData({
@@ -60,6 +67,8 @@ function BookForm({ saveBook, editingBook }) {
       price: "",
       rating: "",
       cover: "",
+      favorite: false,
+      status: "To Read",
     });
   }
 
@@ -151,6 +160,20 @@ function BookForm({ saveBook, editingBook }) {
           value={formData.cover}
           onChange={handleChange}
         />
+      </div>
+
+      <div className="form-group">
+        <label>Reading Status</label>
+
+        <select
+          name="status"
+          value={formData.status}
+          onChange={handleChange}
+        >
+          <option>To Read</option>
+          <option>Reading</option>
+          <option>Completed</option>
+        </select>
       </div>
 
       <button className="submit-btn" type="submit">
