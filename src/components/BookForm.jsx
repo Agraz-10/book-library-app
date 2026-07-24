@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 
+import { toast } from "react-toastify";
+
 function BookForm({ saveBook, editingBook }) {
   const [formData, setFormData] = useState({
     title: "",
@@ -47,6 +49,29 @@ function BookForm({ saveBook, editingBook }) {
 
   function handleSubmit(event) {
     event.preventDefault();
+
+    if (formData.title.trim() === "") {
+      toast.error("Please enter a book title.");
+      return;
+    }
+
+    if (formData.author.trim() === "") {
+      toast.error("Please enter the author's name.");
+      return;
+    }
+
+    if (Number(formData.price) <= 0) {
+      toast.error("Price must be greater than 0.");
+      return;
+    }
+
+    if (
+      Number(formData.rating) < 0 ||
+      Number(formData.rating) > 5
+    ) {
+      toast.error("Rating must be between 0 and 5.");
+      return;
+    }
 
     saveBook({
       id: editingBook ? editingBook.id : Date.now(),
