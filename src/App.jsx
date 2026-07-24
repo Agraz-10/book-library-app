@@ -4,6 +4,7 @@ import BookForm from "./components/BookForm";
 import BookCard from "./components/BookCard";
 import CategoryFilter from "./components/CategoryFilter";
 import books from "./data/books";
+import StatsCards from "./components/StatsCards";
 
 function App() {
   const [bookList, setBookList] = useState(() => {

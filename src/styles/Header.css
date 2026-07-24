@@ -1,0 +1,114 @@
+.header {
+  width: 100%;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8, #1e40af);
+  color: white;
+  border-radius: 24px;
+  overflow: hidden;
+  margin-bottom: 35px;
+  box-shadow: 0 20px 40px rgba(37, 99, 235, 0.25);
+}
+
+.header-overlay {
+  padding: 45px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 40px;
+}
+
+.header-left {
+  max-width: 650px;
+}
+
+.header-badge {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.18);
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  backdrop-filter: blur(8px);
+}
+
+.header-left h1 {
+  font-size: 48px;
+  margin-bottom: 18px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.header-left p {
+  font-size: 18px;
+  opacity: 0.9;
+  line-height: 1.8;
+}
+
+.header-right {
+  display: flex;
+  gap: 20px;
+}
+
+.header-card {
+  min-width: 170px;
+  padding: 25px;
+  border-radius: 20px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.header-card span {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 12px;
+  opacity: 0.85;
+}
+
+.header-card h2 {
+  font-size: 42px;
+  font-weight: 700;
+}
+
+.header-card h3 {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+@media (max-width: 900px) {
+  .header-overlay {
+    flex-direction: column;
+    text-align: center;
+    padding: 35px 25px;
+  }
+
+  .header-right {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .header-card {
+    flex: 1;
+    min-width: 160px;
+  }
+
+  .header-left h1 {
+    font-size: 36px;
+  }
+}
+
+@media (max-width: 600px) {
+  .header-left h1 {
+    font-size: 30px;
+  }
+
+  .header-left p {
+    font-size: 16px;
+  }
+
+  .header-card {
+    width: 100%;
+  }
+}
