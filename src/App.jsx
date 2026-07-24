@@ -67,6 +67,16 @@ function App() {
     setEditingBook(book);
   }
 
+  function toggleFavorite(id) {
+    const updatedBooks = bookList.map((book) =>
+      book.id === id
+        ? { ...book, favorite: !book.favorite }
+        : book
+    );
+
+    setBookList(updatedBooks);
+  }
+
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedBookId, setSelectedBookId] = useState(null);
 
@@ -183,6 +193,8 @@ function App() {
                     category={book.category}
                     price={book.price}
                     rating={book.rating}
+                    favorite={book.favorite}
+                    onToggleFavorite={() => toggleFavorite(book.id)}
                     onEdit={() => editBook(book)}
                     onDelete={() => openDeleteModal(book.id)}
                   />

@@ -5,6 +5,8 @@ function BookCard({
   category,
   price,
   rating,
+  favorite,
+  onToggleFavorite,
   onEdit,
   onDelete,
 }) {
@@ -20,6 +22,13 @@ function BookCard({
         />
 
         <span className="category-badge">{category}</span>
+
+        <button
+          className="favorite-btn"
+          onClick={onToggleFavorite}
+        >
+          {favorite ? "❤️" : "🤍"}
+        </button>
       </div>
 
       <div className="book-content">
@@ -29,13 +38,11 @@ function BookCard({
 
         <div className="book-details">
           <div className="detail-item">
-            <span>⭐</span>
-            <strong>{rating}</strong>
+            ⭐ <strong>{rating}</strong>
           </div>
 
           <div className="detail-item">
-            <span>💲</span>
-            <strong>${price}</strong>
+            💲 <strong>${price}</strong>
           </div>
         </div>
 

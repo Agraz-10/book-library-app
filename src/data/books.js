@@ -7,6 +7,7 @@ const books = [
     category: "Self Help",
     price: 15.99,
     rating: 4.8,
+    favorite: false,
   },
   {
     id: 2,
@@ -16,6 +17,7 @@ const books = [
     category: "Fantasy",
     price: 12.5,
     rating: 4.7,
+    favorite: false,
   },
   {
     id: 3,
@@ -25,6 +27,7 @@ const books = [
     category: "Programming",
     price: 28.99,
     rating: 4.9,
+    favorite: false,
   },
 ];
 

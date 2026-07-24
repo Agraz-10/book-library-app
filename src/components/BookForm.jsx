@@ -50,6 +50,7 @@ function BookForm({ saveBook, editingBook }) {
       price: Number(formData.price),
       rating: Number(formData.rating),
       cover: formData.cover,
+      favorite: editingBook ? editingBook.favorite : false,
     });
 
     setFormData({
