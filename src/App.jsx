@@ -6,9 +6,10 @@ import BookForm from "./components/BookForm";
 import BookCard from "./components/BookCard";
 import CategoryFilter from "./components/CategoryFilter";
 import StatsCards from "./components/StatsCards";
-import books from "./data/books";
 import DeleteModal from "./components/DeleteModal";
 import BookDetailsModal from "./components/BookDetailsModal";
+
+import books from "./data/books";
 
 function App() {
   const [bookList, setBookList] = useState(() => {
@@ -22,9 +23,20 @@ function App() {
   const [editingBook, setEditingBook] = useState(null);
   const [selectedBook, setSelectedBook] = useState(null);
 
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [selectedBookId, setSelectedBookId] = useState(null);
+
+  const [darkMode, setDarkMode] = useState(() => {
+    return JSON.parse(localStorage.getItem("darkMode")) || false;
+  });
+
   useEffect(() => {
     localStorage.setItem("books", JSON.stringify(bookList));
   }, [bookList]);
+
+  useEffect(() => {
+    localStorage.setItem("darkMode", JSON.stringify(darkMode));
+  }, [darkMode]);
 
   function saveBook(book) {
     if (editingBook) {
@@ -79,9 +91,6 @@ function App() {
     setBookList(updatedBooks);
   }
 
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [selectedBookId, setSelectedBookId] = useState(null);
-
   const categories = [...new Set(bookList.map((book) => book.category))];
 
   const filteredBooks = bookList
@@ -121,19 +130,25 @@ function App() {
     totalBooks === 0
       ? "0.0"
       : (
-        bookList.reduce((sum, book) => sum + book.rating, 0) / totalBooks
-      ).toFixed(1);
+          bookList.reduce((sum, book) => sum + book.rating, 0) / totalBooks
+        ).toFixed(1);
 
   const averagePrice =
     totalBooks === 0
       ? "0.00"
       : (
-        bookList.reduce((sum, book) => sum + book.price, 0) / totalBooks
-      ).toFixed(2);
+          bookList.reduce((sum, book) => sum + book.price, 0) / totalBooks
+        ).toFixed(2);
 
   return (
-    <>
+    <div className={darkMode ? "app dark" : "app"}>
       <Header totalBooks={totalBooks} />
+
+      <div className="theme-toggle">
+        <button onClick={() => setDarkMode(!darkMode)}>
+          {darkMode ? "☀️ Light Mode" : "🌙 Dark Mode"}
+        </button>
+      </div>
 
       <main className="container">
         <div className="dashboard">
@@ -221,7 +236,7 @@ function App() {
         book={selectedBook}
         onClose={() => setSelectedBook(null)}
       />
-    </>
+    </div>
   );
 }
 

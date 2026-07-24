@@ -121,3 +121,82 @@ select {
 ::-webkit-scrollbar-thumb:hover {
   background: #2563eb;
 }
+
+.theme-toggle {
+  display: flex;
+  justify-content: flex-end;
+  margin: 20px 0;
+}
+
+.theme-toggle button {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.theme-toggle button:hover {
+  background: #1d4ed8;
+}
+
+.dark {
+  background: #0f172a;
+  color: #f8fafc;
+  min-height: 100vh;
+}
+
+.dark .book-form,
+.dark .book-card,
+.dark .stat-card,
+.dark .header-card,
+.dark .empty-message,
+.dark .delete-modal,
+.dark .details-modal,
+.dark .search-input,
+.dark .category-filter,
+.dark .sort-select {
+  background: #1e293b;
+  color: #f8fafc;
+}
+
+.dark .book-content h3,
+.dark .form-header h2,
+.dark .section-title,
+.dark .details-info h2,
+.dark .delete-modal h2,
+.dark .stat-info h2 {
+  color: #f8fafc;
+}
+
+.dark .book-author,
+.dark .form-header p,
+.dark .details-info h4,
+.dark .details-stats,
+.dark .stat-info p {
+  color: #cbd5e1;
+}
+
+.dark input,
+.dark select {
+  background: #334155;
+  color: white;
+  border-color: #475569;
+}
+
+.dark input::placeholder {
+  color: #cbd5e1;
+}
+
+.dark .cancel-btn {
+  background: #475569;
+  color: white;
+}
+
+.dark .cancel-btn:hover {
+  background: #64748b;
+}
