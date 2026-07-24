@@ -1,86 +1,52 @@
-import { useState } from "react";
-
-function BookForm({ addBook }) {
-  const [title, setTitle] = useState("");
-  const [author, setAuthor] = useState("");
-  const [category, setCategory] = useState("");
-  const [price, setPrice] = useState("");
-  const [rating, setRating] = useState("");
-  const [cover, setCover] = useState("");
-
-  function handleSubmit(event) {
-    event.preventDefault();
-
-    const newBook = {
-      id: Date.now(),
-      title,
-      author,
-      category,
-      price,
-      rating,
-      cover,
-    };
-
-    addBook(newBook);
-
-    setTitle("");
-    setAuthor("");
-    setCategory("");
-    setPrice("");
-    setRating("");
-    setCover("");
-  }
-
+function BookCard(props) {
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Add New Book</h2>
-
-      <input
-        type="text"
-        placeholder="Book Title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
+    <div className="book-card">
+      <img
+        src={
+          props.cover ||
+          "https://via.placeholder.com/300x400?text=No+Cover"
+        }
+        alt={props.title}
+        className="book-cover"
       />
 
-      <input
-        type="text"
-        placeholder="Author"
-        value={author}
-        onChange={(e) => setAuthor(e.target.value)}
-      />
+      <div className="book-info">
+        <h3>{props.title}</h3>
 
-      <input
-        type="text"
-        placeholder="Category"
-        value={category}
-        onChange={(e) => setCategory(e.target.value)}
-      />
+        <p>
+          <strong>Author:</strong> {props.author}
+        </p>
 
-      <input
-        type="number"
-        placeholder="Price"
-        value={price}
-        onChange={(e) => setPrice(e.target.value)}
-      />
+        <p>
+          <strong>Category:</strong> {props.category}
+        </p>
 
-      <input
-        type="number"
-        step="0.1"
-        placeholder="Rating"
-        value={rating}
-        onChange={(e) => setRating(e.target.value)}
-      />
+        <p>
+          <strong>Price:</strong> ${props.price}
+        </p>
 
-      <input
-        type="text"
-        placeholder="Book Cover URL"
-        value={cover}
-        onChange={(e) => setCover(e.target.value)}
-      />
+        <p>
+          <strong>Rating:</strong> ⭐ {props.rating}
+        </p>
 
-      <button type="submit">Add Book</button>
-    </form>
+        <div className="card-buttons">
+          <button
+            className="edit-btn"
+            onClick={props.onEdit}
+          >
+            ✏️ Edit
+          </button>
+
+          <button
+            className="delete-btn"
+            onClick={props.onDelete}
+          >
+            🗑 Delete
+          </button>
+        </div>
+      </div>
+    </div>
   );
 }
 
-export default BookForm;
+export default BookCard;

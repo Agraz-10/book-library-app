@@ -15,17 +15,37 @@ function App() {
   const [category, setCategory] = useState("All");
   const [sortBy, setSortBy] = useState("title");
 
+  // Stores the book currently being edited
+  const [editingBook, setEditingBook] = useState(null);
+
   useEffect(() => {
     localStorage.setItem("books", JSON.stringify(bookList));
   }, [bookList]);
 
-  function addBook(newBook) {
-    setBookList([...bookList, newBook]);
+  function saveBook(book) {
+    if (editingBook) {
+      const updatedBooks = bookList.map((item) =>
+        item.id === book.id ? book : item
+      );
+
+      setBookList(updatedBooks);
+      setEditingBook(null);
+    } else {
+      setBookList([...bookList, book]);
+    }
   }
 
   function deleteBook(id) {
     const updatedBooks = bookList.filter((book) => book.id !== id);
     setBookList(updatedBooks);
+
+    if (editingBook && editingBook.id === id) {
+      setEditingBook(null);
+    }
+  }
+
+  function editBook(book) {
+    setEditingBook(book);
   }
 
   const categories = [...new Set(bookList.map((book) => book.category))];
@@ -64,7 +84,10 @@ function App() {
       <main className="container">
         <div className="dashboard">
           <aside className="sidebar">
-            <BookForm addBook={addBook} />
+            <BookForm
+              saveBook={saveBook}
+              editingBook={editingBook}
+            />
           </aside>
 
           <section className="content">
@@ -99,7 +122,9 @@ function App() {
             </h2>
 
             {filteredBooks.length === 0 ? (
-              <p className="empty-message">📚 No books found.</p>
+              <p className="empty-message">
+                📚 No books found.
+              </p>
             ) : (
               <div className="book-grid">
                 {filteredBooks.map((book) => (
@@ -112,6 +137,7 @@ function App() {
                     price={book.price}
                     rating={book.rating}
                     onDelete={() => deleteBook(book.id)}
+                    onEdit={() => editBook(book)}
                   />
                 ))}
               </div>
