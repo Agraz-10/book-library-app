@@ -11,36 +11,36 @@ function BookForm({ saveBook, editingBook }) {
   });
 
   useEffect(() => {
-    setFormData(
-      editingBook
-        ? {
-            title: editingBook.title,
-            author: editingBook.author,
-            category: editingBook.category,
-            price: editingBook.price,
-            rating: editingBook.rating,
-            cover: editingBook.cover,
-          }
-        : {
-            title: "",
-            author: "",
-            category: "",
-            price: "",
-            rating: "",
-            cover: "",
-          }
-    );
+    if (editingBook) {
+      setFormData({
+        title: editingBook.title,
+        author: editingBook.author,
+        category: editingBook.category,
+        price: editingBook.price,
+        rating: editingBook.rating,
+        cover: editingBook.cover,
+      });
+    } else {
+      setFormData({
+        title: "",
+        author: "",
+        category: "",
+        price: "",
+        rating: "",
+        cover: "",
+      });
+    }
   }, [editingBook]);
 
-  function handleChange(e) {
+  function handleChange(event) {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [event.target.name]: event.target.value,
     });
   }
 
-  function handleSubmit(e) {
-    e.preventDefault();
+  function handleSubmit(event) {
+    event.preventDefault();
 
     saveBook({
       id: editingBook ? editingBook.id : Date.now(),
@@ -63,66 +63,96 @@ function BookForm({ saveBook, editingBook }) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>{editingBook ? "Edit Book" : "Add New Book"}</h2>
+    <form className="book-form" onSubmit={handleSubmit}>
+      <div className="form-header">
+        <span>📖 Library Manager</span>
 
-      <input
-        type="text"
-        name="title"
-        placeholder="Book Title"
-        value={formData.title}
-        onChange={handleChange}
-        required
-      />
+        <h2>{editingBook ? "Edit Book" : "Add New Book"}</h2>
 
-      <input
-        type="text"
-        name="author"
-        placeholder="Author"
-        value={formData.author}
-        onChange={handleChange}
-        required
-      />
+        <p>
+          {editingBook
+            ? "Update the selected book."
+            : "Fill in the details to add a new book."}
+        </p>
+      </div>
 
-      <input
-        type="text"
-        name="category"
-        placeholder="Category"
-        value={formData.category}
-        onChange={handleChange}
-        required
-      />
+      <div className="form-group">
+        <label>Book Title</label>
+        <input
+          type="text"
+          name="title"
+          placeholder="Atomic Habits"
+          value={formData.title}
+          onChange={handleChange}
+          required
+        />
+      </div>
 
-      <input
-        type="number"
-        name="price"
-        placeholder="Price"
-        value={formData.price}
-        onChange={handleChange}
-        required
-      />
+      <div className="form-group">
+        <label>Author</label>
+        <input
+          type="text"
+          name="author"
+          placeholder="James Clear"
+          value={formData.author}
+          onChange={handleChange}
+          required
+        />
+      </div>
 
-      <input
-        type="number"
-        name="rating"
-        step="0.1"
-        min="0"
-        max="5"
-        placeholder="Rating"
-        value={formData.rating}
-        onChange={handleChange}
-        required
-      />
+      <div className="form-group">
+        <label>Category</label>
+        <input
+          type="text"
+          name="category"
+          placeholder="Programming"
+          value={formData.category}
+          onChange={handleChange}
+          required
+        />
+      </div>
 
-      <input
-        type="text"
-        name="cover"
-        placeholder="Book Cover URL"
-        value={formData.cover}
-        onChange={handleChange}
-      />
+      <div className="double-input">
+        <div className="form-group">
+          <label>Price ($)</label>
+          <input
+            type="number"
+            name="price"
+            placeholder="25"
+            value={formData.price}
+            onChange={handleChange}
+            required
+          />
+        </div>
 
-      <button type="submit">
+        <div className="form-group">
+          <label>Rating</label>
+          <input
+            type="number"
+            name="rating"
+            min="0"
+            max="5"
+            step="0.1"
+            placeholder="4.8"
+            value={formData.rating}
+            onChange={handleChange}
+            required
+          />
+        </div>
+      </div>
+
+      <div className="form-group">
+        <label>Cover Image URL</label>
+        <input
+          type="text"
+          name="cover"
+          placeholder="https://example.com/book.jpg"
+          value={formData.cover}
+          onChange={handleChange}
+        />
+      </div>
+
+      <button className="submit-btn" type="submit">
         {editingBook ? "Update Book" : "Add Book"}
       </button>
     </form>
