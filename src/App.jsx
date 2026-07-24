@@ -47,46 +47,52 @@ function App() {
       <Header />
 
       <main className="container">
-        <BookForm addBook={addBook} />
+        <div className="dashboard">
+          <aside className="sidebar">
+            <BookForm addBook={addBook} />
+          </aside>
 
-        <input
-          type="text"
-          className="search-input"
-          placeholder="🔍 Search by title or author..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
+          <section className="content">
+            <input
+              type="text"
+              className="search-input"
+              placeholder="🔍 Search by title or author..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
 
-        <CategoryFilter
-          category={category}
-          setCategory={setCategory}
-          categories={categories}
-        />
+            <CategoryFilter
+              category={category}
+              setCategory={setCategory}
+              categories={categories}
+            />
 
-        <h2 className="section-title">
-          My Library ({filteredBooks.length})
-        </h2>
+            <h2 className="section-title">
+              My Library ({filteredBooks.length})
+            </h2>
 
-        {filteredBooks.length === 0 ? (
-          <p className="empty-message">
-            📚 No books found.
-          </p>
-        ) : (
-          <div className="book-grid">
-            {filteredBooks.map((book) => (
-              <BookCard
-                key={book.id}
-                cover={book.cover}
-                title={book.title}
-                author={book.author}
-                category={book.category}
-                price={book.price}
-                rating={book.rating}
-                onDelete={() => deleteBook(book.id)}
-              />
-            ))}
-          </div>
-        )}
+            {filteredBooks.length === 0 ? (
+              <p className="empty-message">
+                📚 No books found.
+              </p>
+            ) : (
+              <div className="book-grid">
+                {filteredBooks.map((book) => (
+                  <BookCard
+                    key={book.id}
+                    cover={book.cover}
+                    title={book.title}
+                    author={book.author}
+                    category={book.category}
+                    price={book.price}
+                    rating={book.rating}
+                    onDelete={() => deleteBook(book.id)}
+                  />
+                ))}
+              </div>
+            )}
+          </section>
+        </div>
       </main>
     </>
   );
