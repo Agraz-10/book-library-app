@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+
 import Header from "./components/Header";
 import BookForm from "./components/BookForm";
 import BookCard from "./components/BookCard";
 import CategoryFilter from "./components/CategoryFilter";
-import books from "./data/books";
 import StatsCards from "./components/StatsCards";
-import { toast } from "react-toastify";
+import books from "./data/books";
 
 function App() {
   const [bookList, setBookList] = useState(() => {
@@ -16,8 +17,6 @@ function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const [category, setCategory] = useState("All");
   const [sortBy, setSortBy] = useState("title");
-
-  // Stores the book currently being edited
   const [editingBook, setEditingBook] = useState(null);
 
   useEffect(() => {
@@ -31,15 +30,11 @@ function App() {
       );
 
       setBookList(updatedBooks);
-      
-      if (editingBook) {
-        toast.success("Book updated successfully!");
-      } else {
-        toast.success("Book added successfully!");
-      }
+      toast.success("Book updated successfully!");
       setEditingBook(null);
     } else {
-      setBookList([...bookList, book]);
+      setBookList((previousBooks) => [...previousBooks, book]);
+      toast.success("Book added successfully!");
     }
   }
 
@@ -86,9 +81,29 @@ function App() {
       }
     });
 
+  const totalBooks = bookList.length;
+
+  const totalCategories = new Set(
+    bookList.map((book) => book.category)
+  ).size;
+
+  const averageRating =
+    totalBooks === 0
+      ? "0.0"
+      : (
+          bookList.reduce((sum, book) => sum + book.rating, 0) / totalBooks
+        ).toFixed(1);
+
+  const averagePrice =
+    totalBooks === 0
+      ? "0.00"
+      : (
+          bookList.reduce((sum, book) => sum + book.price, 0) / totalBooks
+        ).toFixed(2);
+
   return (
     <>
-      <Header totalBooks={bookList.length} />
+      <Header totalBooks={totalBooks} />
 
       <main className="container">
         <div className="dashboard">
@@ -138,9 +153,7 @@ function App() {
             </h2>
 
             {filteredBooks.length === 0 ? (
-              <p className="empty-message">
-                📚 No books found.
-              </p>
+              <p className="empty-message">📚 No books found.</p>
             ) : (
               <div className="book-grid">
                 {filteredBooks.map((book) => (
@@ -152,8 +165,8 @@ function App() {
                     category={book.category}
                     price={book.price}
                     rating={book.rating}
-                    onDelete={() => deleteBook(book.id)}
                     onEdit={() => editBook(book)}
+                    onDelete={() => deleteBook(book.id)}
                   />
                 ))}
               </div>
