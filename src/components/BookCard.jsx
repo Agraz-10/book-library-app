@@ -1,51 +1,55 @@
-function BookCard(props) {
+function BookCard({
+  cover,
+  title,
+  author,
+  category,
+  price,
+  rating,
+  onEdit,
+  onDelete,
+}) {
   return (
-    <div className="book-card">
-      <img
-        src={
-          props.cover ||
-          "https://via.placeholder.com/300x400?text=No+Cover"
-        }
-        alt={props.title}
-        className="book-cover"
-      />
+    <article className="book-card">
+      <div className="book-image">
+        <img
+          src={
+            cover ||
+            "https://via.placeholder.com/300x420?text=No+Cover"
+          }
+          alt={title}
+        />
 
-      <div className="book-info">
-        <h3>{props.title}</h3>
+        <span className="category-badge">{category}</span>
+      </div>
 
-        <p>
-          <strong>Author:</strong> {props.author}
-        </p>
+      <div className="book-content">
+        <h3>{title}</h3>
 
-        <p>
-          <strong>Category:</strong> {props.category}
-        </p>
+        <p className="book-author">{author}</p>
 
-        <p>
-          <strong>Price:</strong> ${props.price}
-        </p>
+        <div className="book-details">
+          <div className="detail-item">
+            <span>⭐</span>
+            <strong>{rating}</strong>
+          </div>
 
-        <p>
-          <strong>Rating:</strong> ⭐ {props.rating}
-        </p>
+          <div className="detail-item">
+            <span>💲</span>
+            <strong>${price}</strong>
+          </div>
+        </div>
 
         <div className="card-buttons">
-          <button
-            className="edit-btn"
-            onClick={props.onEdit}
-          >
+          <button className="edit-btn" onClick={onEdit}>
             ✏️ Edit
           </button>
 
-          <button
-            className="delete-btn"
-            onClick={props.onDelete}
-          >
+          <button className="delete-btn" onClick={onDelete}>
             🗑 Delete
           </button>
         </div>
       </div>
-    </div>
+    </article>
   );
 }
 
